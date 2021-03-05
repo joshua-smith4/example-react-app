@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+
+function cards(numCards, width, margin) {
+    let retVal = [];
+    for (let i = 0; i < numCards; ++i) {
+        retVal.push(
+            <div
+                style={{
+                    backgroundColor: "green",
+                    margin: margin,
+                    width: width,
+                    height: 300
+                }}
+            ></div>
+        );
+    }
+    return retVal;
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const minCardWidth = 220;
+    const margin = 5;
+
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    const numColumns = Math.floor(windowWidth / minCardWidth);
+    if (numColumns <= 0) numColumns = 1;
+    const totalMargin = numColumns * margin * 2 + 1;
+    const cardWidth = (windowWidth - totalMargin) / numColumns;
+
+    function onWindowResize(evt) {
+        setWindowWidth(window.innerWidth);
+    }
+
+    useEffect(() => {
+        window.addEventListener("resize", onWindowResize);
+        return () => {
+            window.removeEventListener(onWindowResize);
+        };
+    }, []);
+
+    return (
+        <div>
+            <div
+                style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    flexDirection: ""
+                }}
+            >
+                {cards(10, cardWidth, margin)}
+            </div>
+        </div>
+    );
 }
 
 export default App;
