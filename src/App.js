@@ -9,7 +9,7 @@ function cards(numCards, width, margin) {
                     backgroundColor: "green",
                     margin: margin,
                     width: width,
-                    height: 300
+                    height: 300,
                 }}
             ></div>
         );
@@ -19,7 +19,7 @@ function cards(numCards, width, margin) {
 
 function App() {
     const minCardWidth = 220;
-    const margin = 5;
+    const margin = 10;
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -35,7 +35,7 @@ function App() {
     useEffect(() => {
         window.addEventListener("resize", onWindowResize);
         return () => {
-            window.removeEventListener(onWindowResize);
+            window.removeEventListener("resize", onWindowResize);
         };
     }, []);
 
@@ -45,7 +45,6 @@ function App() {
                 style={{
                     display: "flex",
                     flexWrap: "wrap",
-                    flexDirection: ""
                 }}
             >
                 {cards(10, cardWidth, margin)}
