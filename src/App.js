@@ -23,7 +23,7 @@ function App() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    const numColumns = Math.floor(windowWidth / minCardWidth);
+    let numColumns = Math.floor(windowWidth / minCardWidth);
     if (numColumns <= 0) numColumns = 1;
     const totalMargin = numColumns * margin * 2 + 1;
     const cardWidth = (windowWidth - totalMargin) / numColumns;
